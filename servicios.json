@@ -1,0 +1,90 @@
+from asyncore import write
+import csv
+import os
+
+temp2 = False
+bandera=True
+while bandera:
+    desicion=input("ingrese el numero de la opcion que desea hacer\n"+
+                    "1)crear archivos\n"+"2)Escribir o leer archivos ya existentes\n"+"3)salir\n"+"---> ")
+    
+                #Primer punto del taller, listar los archivos que contiene la carpeta.
+    if desicion =="1":
+        contenido = os.listdir('C:/Users/Usuario/Desktop/DiazRomero')
+        print("su carpeta contiene los siguientes archivos")
+        print(contenido)
+              
+        desicion=input("ingrese el numero de la opcion que desea hacer\n"+"1)crear un archivo .csv\n"+
+                        "2)crear un archivo .xml\n"+"3)crear un archivo .json\n"+"---> ")
+        if desicion=="1":
+            file = open("C:/Users/Usuario/Desktop/DiazRomero/usuario.csv", "w")
+            columnas=[["cuenta","nombre","Apellidos","Cargo","Dependencia","Oficina","Telefono","Email","Compania","Ciudad","Estado"]]
+            with open('Desktop/DiazRomero/usuario.csv','a',newline='') as file:
+                writer=csv.writer(file,delimiter=';')
+                writer.writerows(columnas)
+        elif desicion=="2":
+            file = open("C:/Users/Usuario/Desktop/DiazRomero/programacion.xml", "w")
+        elif desicion=="3":
+            file = open("C:/Users/Usuario/Desktop/DiazRomero/servicios.json", "w")
+        else:
+            print("opcion incorrecta")
+    elif desicion =="2":
+        desicion=input("ingrese el numero de la opcion que desea hacer\n"+
+                        "1)desea escribir en el archivo\n"+"2)desea leer el archivo\n"+"---> ")
+        if desicion=="1":
+            desicion=input("ingrese el numero de la opcion que desea hacer\n"+"1)editar el archivo .csv\n"+
+                            "2)editar el archivo .xml\n"+"1)editar el archivo .json\n"+"---> ")
+            if desicion=="1":
+                temp=int(input("cuantos usuarios desea agregar?: "))
+                for i in range(temp):
+                    contador = i
+                    print("usuario numero ", contador+1)
+                    cuenta=input("ingrese la cuenta del usuario: ")
+                    nombre=input("ingrese el nombre del usuario: ")
+                    Apellidos=input("ingrese los Apellidos del usuario: ")
+                    Cargo=input("ingrese el Cargo del usuario: ")
+                    Dependencia=input("ingrese la Dependencia del usuario: ")
+                    Oficina=input("ingrese la Oficina del usuario: ")
+                    Telefono=input("ingrese el Telefono del usuario: ")
+                    Email=input("ingrese el Email del usuario: ")
+                    Compañía=input("ingrese la Compania del usuario: ")
+                    Ciudad=input("ingrese la Ciudad del usuario: ")
+                    Estado=input("ingrese el Estado del usuario: ")
+                    usuarios=[[cuenta,nombre,Apellidos,Cargo,Dependencia,Oficina,Telefono,Email,Compañía,Ciudad,Estado]]
+                    with open('Desktop/DiazRomero/usuario.csv','a',newline='') as file:
+                        writer=csv.writer(file,delimiter=';')
+                        writer.writerows(usuarios)
+       
+                #Segundo punto del taller, Leer el contenido del archivo .csv
+       
+        elif desicion=="2":
+            desicion=input("ingrese el numero de la opcion que desea hacer\n"+"1)leer el archivo .csv\n"+
+                            "2)leer el archivo .xml\n"+"1)leer el archivo .json\n"+"---> ")
+            if desicion =="1":
+                desicion=input("ingrese el numero de la opcion que desea hacer\n"+"1)Imprimir columnas especificas\n"+
+                                "2)Imprimir todas las columnas\n"+"---> ")
+               
+                #Tercer punto del taller, Imprimir información de columnas específicas del archivo .csv
+                if desicion =="1":
+                    with open('C:/Users/Usuario/Desktop/DiazRomero/usuario.csv')as f:
+                        leer =  csv.reader(f, delimiter=";")
+                        for row in leer:
+                            if temp2:
+                                print("-----------------")
+                                print("nombre: {1}\nApellidos: {2}\nDependencia: {4}\nEstado: {10}".format(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]))                            
+                                print("_________________\n")
+                            temp2 = True
+                elif desicion == "2":
+                    with open('C:/Users/Usuario/Desktop/DiazRomero/usuario.csv')as f:
+                        leer =  csv.reader(f, delimiter=";")
+                        for row in leer:
+                            if temp2:
+                                print("-----------------")
+                                print("Cuenta: {0}, nombre: {1}, Apellidos: {2}, Cargo: {3}, Dependencia: {4}\nOficina: {5}, Telefono: {6}, Email: {7}, Compania: {8}, Ciudad {9}, Estado: {10}".format(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]))                            
+                                print("_________________\n")
+                            temp2 = True
+    elif desicion =="3":
+        print("Hasta luego")
+        bandera=False 
+    else:
+        print("opcion incorrecta")   
